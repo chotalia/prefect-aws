@@ -1351,7 +1351,7 @@ class ECSWorker(BaseWorker):
 
         config_subnets = network_configuration.get("subnets", [])
         if not all(
-            [conf_sn in sn.values() for conf_sn in config_subnets for sn in subnets]
+            (conf_sn == sn['SubnetId'] for conf_sn in config_subnets for sn in subnets)
         ):
             raise ValueError(
                 f"Subnets {config_subnets} not found within {vpc_message}."
